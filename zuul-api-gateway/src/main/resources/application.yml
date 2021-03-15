@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: zuul-api-gateway
+
+server:
+  port: 8872
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8871/eureka
+
+zuul:
+  #Service will be mapped under the /api URI
+  # prefix: /api
+  # The ignoredServices disable accessing services using service name
+  # with these they should be only accessed through the path we defined below.
+  ignoredServices: '*'
+  routes:
+    bus-service:
+      path: /api/v1/bus/**
+      serviceId: bus-service
+      stripPrefix: false
+    passenger-service:
+      path: /api/v1/passenger/**
+      serviceId: passenger-service
+      stripPrefix: false
